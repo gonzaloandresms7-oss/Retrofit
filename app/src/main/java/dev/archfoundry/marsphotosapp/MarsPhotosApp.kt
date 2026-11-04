@@ -14,6 +14,7 @@ fun MarsPhotosApp() {
     Scaffold() { innerPadding ->
         HomeScreen(
             marsUiState = viewModel.marsUiState,
+            retryEnter = viewModel::retryAction,
             modifier = Modifier.padding(innerPadding)
         )
     }

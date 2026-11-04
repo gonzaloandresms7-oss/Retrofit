@@ -35,6 +35,10 @@ class MarsViewModel(private val marsPhotosRepository: MarsPhotoRepository) : Vie
         }
     }
 
+    fun retryAction(){
+        marsUiState=MarsUiState.Loading
+        getMarsPhotos()
+    }
     companion object{
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

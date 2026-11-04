@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -27,7 +28,7 @@ import coil.compose.AsyncImage
 import dev.archfoundry.marsphotosapp.Network.MarsPhoto
 
 @Composable
-fun HomeScreen(marsUiState: MarsUiState, modifier: Modifier = Modifier) {
+fun HomeScreen(marsUiState: MarsUiState, modifier: Modifier = Modifier, retryEnter:()->Unit) {
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -36,7 +37,7 @@ fun HomeScreen(marsUiState: MarsUiState, modifier: Modifier = Modifier) {
         when (marsUiState) {
             is MarsUiState.Loading -> LoadingScreen(modifier=Modifier.fillMaxSize())
             is MarsUiState.Success -> PhotosGridScreen(marsUiState.photosList,modifier=Modifier.fillMaxSize())
-            is MarsUiState.Error -> ErrorScreen()
+            is MarsUiState.Error -> ErrorScreen(retryEnter=retryEnter,modifier=Modifier.fillMaxSize())
         }
 
     }
@@ -79,7 +80,7 @@ fun MarsPhotoCard(photo: MarsPhoto,modifier: Modifier=Modifier) {
 }
 
 @Composable
-fun ErrorScreen() {
+fun ErrorScreen(modifier:Modifier, retryEnter:()->Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -87,6 +88,9 @@ fun ErrorScreen() {
     ) {
         Image(painter=painterResource(R.drawable.ic_connection_error),contentDescription=null)
         Text(text = "Error...",modifier=Modifier.padding(all=16.dp))
+        Button(onClick = retryEnter) {
+            Text("Reintentar")
+        }
     }
 }
 
