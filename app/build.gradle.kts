@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0"
 }
 
 android {
@@ -60,5 +61,15 @@ dependencies {
     val versionViewModel = "2.8.7"
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$versionViewModel")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$versionViewModel")
+
+    val versionRetrofit ="2.11.0"
+    implementation("com.squareup.retrofit2:retrofit:$versionRetrofit")
+    implementation("com.squareup.retrofit2:converter-scalars:$versionRetrofit")
+
+    implementation("com.squareup.retrofit2:converter-kotlinx-serialization:$versionRetrofit")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+
+    implementation("io.coil-kt:coil-compose:2.7.0")
 
 }
